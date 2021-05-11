@@ -3,7 +3,7 @@ info:
   title: Influx OSS API Service
   version: 2.0.0
 servers:
-  - url: /api/v2
+  - url: /
 paths:
   /signin:
     post:
@@ -5884,9 +5884,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /health:
-    servers:
-      - url: ''
+  health:
     get:
       operationId: GetHealth
       tags:
@@ -5913,9 +5911,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /ready:
-    servers:
-      - url: ''
+  ready:
     get:
       operationId: GetReady
       tags:
@@ -5936,7 +5932,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /users:
+  api/v2/users:
     get:
       operationId: GetUsers
       tags:
@@ -5984,7 +5980,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  '/users/{userID}':
+  'api/v2/users/{userID}':
     get:
       operationId: GetUsersID
       tags:
@@ -6066,7 +6062,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /setup:
+  api/v2/setup:
     get:
       operationId: GetSetup
       tags:
@@ -6110,7 +6106,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /authorizations:
+  api/v2/authorizations:
     get:
       operationId: GetAuthorizations
       tags:
@@ -6184,7 +6180,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  '/authorizations/{authID}':
+  'api/v2/authorizations/{authID}':
     get:
       operationId: GetAuthorizationsID
       tags:
@@ -6266,7 +6262,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /variables:
+  api/v2/variables:
     get:
       operationId: GetVariables
       tags:
@@ -6330,7 +6326,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  '/variables/{variableID}':
+  'api/v2/variables/{variableID}':
     get:
       operationId: GetVariablesID
       tags:

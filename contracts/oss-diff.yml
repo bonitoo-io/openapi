@@ -3,18 +3,16 @@ info:
   title: Influx OSS API Service
   version: 2.0.0
 servers:
-  - url: /api/v2
+  - url: /
 paths:
-  /health:
-    servers:
-      - url: ''
+  health:
     get:
       operationId: GetHealth
       tags:
         - Health
       summary: Get the health of an instance
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
       responses:
         '200':
           description: The instance is healthy
@@ -33,7 +31,7 @@ paths:
                   checks:
                     type: array
                     items:
-                      $ref: '#/paths/~1health/get/responses/200/content/application~1json/schema'
+                      $ref: '#/paths/health/get/responses/200/content/application~1json/schema'
                   status:
                     type: string
                     enum:
@@ -48,16 +46,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1health/get/responses/200/content/application~1json/schema'
+                $ref: '#/paths/health/get/responses/200/content/application~1json/schema'
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
-  /ready:
-    servers:
-      - url: ''
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
+  ready:
     get:
       operationId: GetReady
       tags:
@@ -132,14 +128,14 @@ paths:
                 required:
                   - code
                   - message
-  /users:
+  api/v2/users:
     get:
       operationId: GetUsers
       tags:
         - Users
       summary: List all users
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
       responses:
         '200':
           description: A list of users
@@ -152,14 +148,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
     post:
       operationId: PostUsers
       tags:
         - Users
       summary: Create a user
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
       requestBody:
         description: User to create
         required: true
@@ -179,15 +175,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
-  '/users/{userID}':
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
+  'api/v2/users/{userID}':
     get:
       operationId: GetUsersID
       tags:
         - Users
       summary: Retrieve a user
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
         - in: path
           name: userID
           schema:
@@ -206,7 +202,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
     patch:
       operationId: PatchUsersID
       tags:
@@ -220,7 +216,7 @@ paths:
             schema:
               $ref: '#/components/schemas/User'
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
         - in: path
           name: userID
           schema:
@@ -239,14 +235,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
     delete:
       operationId: DeleteUsersID
       tags:
         - Users
       summary: Delete a user
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
         - in: path
           name: userID
           schema:
@@ -261,8 +257,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
-  /setup:
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
+  api/v2/setup:
     get:
       operationId: GetSetup
       tags:
@@ -270,7 +266,7 @@ paths:
       summary: 'Check if database has default user, org, bucket'
       description: 'Returns `true` if no default user, organization, or bucket has been created.'
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
       responses:
         '200':
           description: allowed true or false
@@ -289,7 +285,7 @@ paths:
       summary: 'Set up initial user, org and bucket'
       description: 'Post an onboarding request to set up initial user, org and bucket.'
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
       requestBody:
         description: Source to create
         required: true
@@ -309,15 +305,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
-  /authorizations:
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
+  api/v2/authorizations:
     get:
       operationId: GetAuthorizations
       tags:
         - Authorizations
       summary: List all authorizations
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
         - in: query
           name: userID
           schema:
@@ -350,14 +346,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
     post:
       operationId: PostAuthorizations
       tags:
         - Authorizations
       summary: Create an authorization
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
       requestBody:
         description: Authorization to create
         required: true
@@ -377,21 +373,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
-  '/authorizations/{authID}':
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
+  'api/v2/authorizations/{authID}':
     get:
       operationId: GetAuthorizationsID
       tags:
         - Authorizations
       summary: Retrieve an authorization
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
         - in: path
           name: authID
           schema:
@@ -410,7 +406,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
     patch:
       operationId: PatchAuthorizationsID
       tags:
@@ -424,7 +420,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Authorization/allOf/0'
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
         - in: path
           name: authID
           schema:
@@ -443,14 +439,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
     delete:
       operationId: DeleteAuthorizationsID
       tags:
         - Authorizations
       summary: Delete an authorization
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
         - in: path
           name: authID
           schema:
@@ -465,15 +461,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
-  /variables:
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
+  api/v2/variables:
     get:
       operationId: GetVariables
       tags:
         - Variables
       summary: Get all variables
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
         - in: query
           name: org
           description: The organization name.
@@ -496,20 +492,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
         default:
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
     post:
       operationId: PostVariables
       summary: Create a variable
       tags:
         - Variables
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
       requestBody:
         description: Variable to create
         required: true
@@ -529,15 +525,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
-  '/variables/{variableID}':
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
+  'api/v2/variables/{variableID}':
     get:
       operationId: GetVariablesID
       tags:
         - Variables
       summary: Get a variable
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
         - in: path
           name: variableID
           required: true
@@ -556,20 +552,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
         default:
           description: Internal server error
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
     delete:
       operationId: DeleteVariablesID
       tags:
         - Variables
       summary: Delete a variable
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
         - in: path
           name: variableID
           required: true
@@ -584,14 +580,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
     patch:
       operationId: PatchVariablesID
       summary: Update a variable
       tags:
         - Variables
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
         - in: path
           name: variableID
           required: true
@@ -617,14 +613,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
     put:
       operationId: PutVariablesID
       summary: Replace a variable
       tags:
         - Variables
       parameters:
-        - $ref: '#/paths/~1ready/get/parameters/0'
+        - $ref: '#/paths/ready/get/parameters/0'
         - in: path
           name: variableID
           required: true
@@ -650,7 +646,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1ready/get/responses/default/content/application~1json/schema'
+                $ref: '#/paths/ready/get/responses/default/content/application~1json/schema'
 components:
   parameters: null
   schemas:
@@ -717,10 +713,10 @@ components:
               properties:
                 self:
                   readOnly: true
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 user:
                   readOnly: true
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
     AuthorizationPostRequest:
       required:
         - orgID
@@ -754,9 +750,9 @@ components:
               readOnly: true
               description: URI of resource.
             self:
-              $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+              $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
             prev:
-              $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+              $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
           required:
             - self
         authorizations:
@@ -921,21 +917,21 @@ components:
                 dashboards: /api/v2/dashboards?org=myorg
               properties:
                 self:
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 members:
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 owners:
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 labels:
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 secrets:
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 buckets:
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 tasks:
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 dashboards:
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
             id:
               readOnly: true
               type: string
@@ -975,22 +971,22 @@ components:
               properties:
                 labels:
                   description: URL to retrieve labels for this bucket
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 members:
                   description: URL to retrieve members that can read this bucket
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 org:
                   description: URL to retrieve parent organization for this bucket
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 owners:
                   description: URL to retrieve owners that can read and write to this bucket.
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 self:
                   description: URL for this bucket
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
                 write:
                   description: URL to write line protocol for this bucket
-                  $ref: '#/paths/~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
+                  $ref: '#/paths/api~1v2~1authorizations/get/responses/200/content/application~1json/schema/properties/links/properties/next'
             id:
               readOnly: true
               type: string

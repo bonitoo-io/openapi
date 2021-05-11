@@ -3,30 +3,26 @@ info:
   title: Influx OSS API Service
   version: 2.0.0
 servers:
-  - url: /api/v2
+  - url: /
 paths:
 #REF_COMMON_PATHS
-  /health:
-    servers:
-      - url: ''
+  health:
     $ref: "./oss/paths/health.yml"
-  /ready:
-    servers:
-      - url: ''
+  ready:
     $ref: "./oss/paths/ready.yml"
-  /users:
+  api/v2/users:
     $ref: "./common/paths/users.yml"
-  "/users/{userID}":
+  api/v2/users/{userID}:
     $ref: "./common/paths/users_userID.yml"
-  /setup:
+  api/v2/setup:
     $ref: "./common/paths/setup.yml"
-  /authorizations:
+  api/v2/authorizations:
     $ref: "./common/paths/authorizations.yml"
-  /authorizations/{authID}:
+  api/v2/authorizations/{authID}:
     $ref: "./common/paths/authorizations_authID.yml"
-  /variables:
+  api/v2/variables:
     $ref: "./common/paths/variables.yml"
-  "/variables/{variableID}":
+  api/v2/variables/{variableID}:
     $ref: "./common/paths/variables_variableID.yml"
 components:
   parameters:
